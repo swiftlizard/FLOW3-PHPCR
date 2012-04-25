@@ -1,0 +1,36 @@
+{
+    "name": "phpcr/phpcr-utils",
+    "type": "library",
+    "description": "PHP Content Repository implementation independant utilities",
+    "keywords": ["phpcr", "contentrepository", "cli"],
+    "homepage": "http://phpcr.github.com",
+    "license": "Apache License 2.0",
+    "authors": [
+        {
+            "name": "David Buchmann",
+            "email": "david@liip.ch"
+        },
+        {
+            "name": "Daniel Barsotti",
+            "email": "daniel.barsotti@liip.ch"
+        },
+        {
+            "name": "Nacho Martín",
+            "email": "nitram.ohcan@gmail.com"
+        },
+        {
+            "name": "Lukas Kahwe Smith",
+            "email": "smith@pooteeweet.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "phpcr/phpcr": ">=2.1.0-beta3",
+        "symfony/console": "2.1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "PHPCR\\Util": "src"
+        }
+    }
+}

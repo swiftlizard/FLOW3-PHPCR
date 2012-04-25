@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+
+$vendorDir = __DIR__.'/../vendor';
+
+$file = $vendorDir.'/.composer/autoload.php';
+if (file_exists($file)) {
+    $autoload = require_once $file;
+} else {
+    throw new RuntimeException('Install dependencies to run test suite.');
+}
+
+$configFile = getcwd() . DIRECTORY_SEPARATOR . 'cli-config.php';
+
+$helperSet = null;
+if (file_exists($configFile)) {
+    if (!is_readable($configFile)) {
+        trigger_error(
+            'Configuration file [' . $configFile . '] does not have read permission.', E_USER_ERROR
+        );
+    }
+
+    require $configFile;
+
+    foreach ($GLOBALS as $helperSetCandidate) {
+        if ($helperSetCandidate instanceof \Symfony\Component\Console\Helper\HelperSet) {
+            $helperSet = $helperSetCandidate;
+            break;
+        }
+    }
+} else {
+    trigger_error(
+        'Configuration file [' . $configFile . '] does not exist. See https://github.com/doctrine/phpcr-odm/wiki/Command-line-tool-configuration', E_USER_ERROR
+    );
+}
+
+$helperSet = ($helperSet) ?: new \Symfony\Component\Console\Helper\HelperSet();
+
+$cli = new \Symfony\Component\Console\Application('PHPCR Command Line Interface', '0.1');
+$cli->setCatchExceptions(true);
+$cli->setHelperSet($helperSet);
+$cli->addCommands(array(
+    new \PHPCR\Util\Console\Command\CreateWorkspaceCommand(),
+    new \PHPCR\Util\Console\Command\DumpCommand(),
+    new \PHPCR\Util\Console\Command\PurgeCommand(),
+    new \PHPCR\Util\Console\Command\RegisterNodeTypesCommand(),
+    new \PHPCR\Util\Console\Command\QueryCommand(),
+));
+$cli->run();
+

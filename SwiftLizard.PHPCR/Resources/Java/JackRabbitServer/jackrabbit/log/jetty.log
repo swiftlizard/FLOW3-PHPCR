@@ -1,0 +1,9 @@
+2012-04-25 19:38:06.545 INFO  [main] Slf4jLog.java:67                  Logging to Logger[org.mortbay.log] via org.mortbay.log.Slf4jLog
+2012-04-25 19:38:06.585 INFO  [main] Slf4jLog.java:67                  jetty-6.1.x
+2012-04-25 19:38:18.043 INFO  [main] Slf4jLog.java:67                  Opened /Volumes/Server/PHPCR/Packages/Application/SwiftLizard.PHPCR/Resources/Java/JackRabbitServer/jackrabbit/log/access.log.2012-04-25
+2012-04-25 19:38:18.047 INFO  [main] Slf4jLog.java:67                  Started SocketConnector@0.0.0.0:8080
+2012-04-25 19:41:48.363 INFO  [main] Slf4jLog.java:67                  Logging to Logger[org.mortbay.log] via org.mortbay.log.Slf4jLog
+2012-04-25 19:41:48.369 INFO  [main] Slf4jLog.java:67                  jetty-6.1.x
+2012-04-25 19:41:50.151 INFO  [main] Slf4jLog.java:67                  Opened /Volumes/Server/PHPCR/Packages/Application/SwiftLizard.PHPCR/Resources/Java/JackRabbitServer/jackrabbit/log/access.log.2012-04-25
+2012-04-25 19:41:50.155 WARN  [main] Slf4jLog.java:76                  failed SocketConnector@0.0.0.0:8080: java.net.BindException: Address already in use
+2012-04-25 19:41:50.156 WARN  [main] Slf4jLog.java:76                  failed Server@4c345b43: java.net.BindException: Address already in use
