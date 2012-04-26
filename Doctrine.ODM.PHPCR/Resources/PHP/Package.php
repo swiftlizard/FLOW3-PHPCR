@@ -5,7 +5,7 @@ use TYPO3\FLOW3\Package\Package as BasePackage;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 /**
-* FLOW3 Package Bootstrap for the Doctrine ORM package
+* FLOW3 Package Bootstrap for the Doctrine ODM PHPCR  package
 */
 class Package extends BasePackage {
 

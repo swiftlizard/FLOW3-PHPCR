@@ -4,7 +4,7 @@ namespace Jackalope;
 use TYPO3\FLOW3\Package\Package as BasePackage;
 
 /**
- * FLOW3 Package Bootstrap for the Doctrine ORM package
+ * FLOW3 Package Bootstrap for the Jackalope package
  */
 class Package extends BasePackage {
 

@@ -4,7 +4,7 @@ namespace PHPCR;
 use TYPO3\FLOW3\Package\Package as BasePackage;
 
 /**
- * FLOW3 Package Bootstrap for the Doctrine ORM package
+ * FLOW3 Package Bootstrap for the PHPCR package
  */
 class Package extends BasePackage {
 
