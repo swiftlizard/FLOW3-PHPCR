@@ -66,3 +66,17 @@ To see what options each command provides just call "./flow3 help <command>" (e.
 * integrate [jackrabbit-importexport](https://github.com/jackalope/jackrabbit-importexport) into Jackalope Package
 * integrate example controller domain/phpcrRepository and domain/phpcrDocuments into SwiftLizard.PHPCR Package
 
+# Supporter
+The following companys and persons had been so nice to help building this by giving hints and advices or beta testing this stuff:
+## Companys
+* [German Telekom AG](http://www.telekom.de), giving the permission to make  the core parts of this port available
+* [Liip AG](http://www.liip.ch), providing PHPCR, Doctrine ODM PHPCR and Jackalope
+
+## People
+* [Lukas Kahwe Smith](https://github.com/lsmith77)
+* [Robert Lemke](https://github.com/robertlemke)
+* [Sebastian Kurfürst] (https://github.com/skurfuerst)
+* [Karsten Dambekalns](https://github.com/kdambekalns)
+* [Bastian Waidelich](http://wwwision.de)
+* [Andy Grunwald](http://andygrunwald.com/)
+
