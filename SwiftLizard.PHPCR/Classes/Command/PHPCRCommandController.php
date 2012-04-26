@@ -54,6 +54,39 @@ class PHPCRCommandController extends \TYPO3\FLOW3\Cli\CommandController{
 	private $phpCrSession;
 
 	/**
+	 * @var \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit
+	 */
+	protected $repository;
+
+	/**
+	 * Helper to inject the repository and init it
+	 * used this way to get the settings within the repository
+	 *
+	 * @param \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit $repository
+	 */
+	public function injectRepository(\SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit $repository){
+		$this->repository = $repository;
+		$this->repository->init();
+	}
+
+	/**
+	 * test insert command to see if every thing works fine
+	 *
+	 * @param string $path
+	 * @return void
+	 */
+	public function dummyInsertCommand($path){
+
+		$document = new \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document();
+		$document->setPath($path);
+		$document->setTitle('Test Document for '. $path);
+		$document->setContent('Lorem Ipsum und so weiter.');
+
+		$this->repository->persist($document);
+		$this->repository->flush();
+	}
+
+	/**
 	 * Injects the FLOW3 settings, only the persistence part is kept for further use
 	 *
 	 * @param array $settings

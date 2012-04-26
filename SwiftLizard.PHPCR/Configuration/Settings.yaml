@@ -18,3 +18,5 @@ SwiftLizard:
         default:
           user: admin
           password: admin
+      JackrabbitRepository:
+        workspace: default
