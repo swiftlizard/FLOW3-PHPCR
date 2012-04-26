@@ -33,15 +33,15 @@ This way I tried to keep the effort for updating these packages as minimal as po
 ## Package Compontents List
 
 ### Doctrine.ODM.PHPCR
--[doctrine/phpcr-odm](https://github.com/doctrine/phpcr-odm)
+* [doctrine/phpcr-odm](https://github.com/doctrine/phpcr-odm)
 
 ### Jackalope
--[jackalope] (https://github.com/jackalope/jackalope)
--[jackalope-jackrabbit] (https://github.com/jackalope/jackalope-jackrabbit)
+* [jackalope] (https://github.com/jackalope/jackalope)
+* [jackalope-jackrabbit] (https://github.com/jackalope/jackalope-jackrabbit)
 
 ### PHPCR
--[PHPCR] (https://github.com/phpcr/phpcr)
--[phpcr-utils] (https://github.com/phpcr/phpcr-utils)
+* [PHPCR] (https://github.com/phpcr/phpcr)
+* [phpcr-utils] (https://github.com/phpcr/phpcr-utils)
 
 ## Setup
 
