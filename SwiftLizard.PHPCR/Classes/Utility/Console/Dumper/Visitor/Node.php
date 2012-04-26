@@ -1,5 +1,5 @@
 <?php
-namespace SwiftLizard\PHPCR\Utility;
+namespace SwiftLizard\PHPCR\Utility\Console\Dumper;
 
 /*                                                                          *
 * This script belongs to the FLOW3 package "SwiftLizard.PHPCR".             *
@@ -21,7 +21,7 @@ use PHPCR\NodeInterface;
  * @author Daniel Barsotti <daniel.barsotti@liip.ch>
  * @author chris zepernick <chris@swift-lizard.com>
  */
-class ConsoleDumperNodeVisitor implements ItemVisitorInterface
+class NodeVisitor implements ItemVisitorInterface
 {
 	/**
 	 * @var \SwiftLizard\PHPCR\Command\PHPCRCommandController

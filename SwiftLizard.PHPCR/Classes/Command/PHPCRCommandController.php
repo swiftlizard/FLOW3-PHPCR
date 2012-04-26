@@ -49,7 +49,7 @@ class PHPCRCommandController extends \TYPO3\FLOW3\Cli\CommandController{
 	protected $currentWorkspace;
 
 	/**
-	 * @var \Jackalope\Session
+	 * @var \Jackalope\SessionInterface
 	 */
 	private $phpCrSession;
 
@@ -240,11 +240,11 @@ CND
 
 		$this->initPHPCR($workspace);
 
-		$nodeVisitor = new \SwiftLizard\PHPCR\Utility\ConsoleDumperNodeVisitor($this);
+		$nodeVisitor = new \SwiftLizard\PHPCR\Utility\Console\Dumper\Visitor\Node($this);
 
 		$propVisitor = null;
 		if ($props) {
-			$propVisitor = new \SwiftLizard\PHPCR\Utility\ConsoleDumperPropertyVisitor($this);
+			$propVisitor = new \SwiftLizard\PHPCR\Utility\Console\Dumper\Visitor\Property($this);
 		}
 
 		$walker = new TreeWalker($nodeVisitor, $propVisitor);
@@ -335,24 +335,9 @@ CND
 	protected function initPHPCR($workspace){
 		$this->currentWorkspace = $workspace;
 
-		$this->outputLine('Initialize Jackrabit Repository with host: '. $this->settings['host']);
-		$repository = \Jackalope\RepositoryFactoryJackrabbit::getRepository(
-			array(
-			     'jackalope.jackrabbit_uri' => $this->settings['host']
-			)
-		);
+		$connector          = new \SwiftLizard\PHPCR\Utility\Jackrabbit\Connector();
+		$this->phpCrSession = $connector->connectToJackrabbitServer($this->currentWorkspace);
 
-		$this->outputLine('Initialize Jackrabit Repository Credentials with user: '. $this->settings['workspaces'][$this->currentWorkspace]['user'] . ' and password: '. $this->settings['workspaces'][$this->currentWorkspace]['password']);
-		$credentials = new \PHPCR\SimpleCredentials(
-			$this->settings['workspaces'][$this->currentWorkspace]['user'],
-			$this->settings['workspaces'][$this->currentWorkspace]['password']
-		);
-
-		$this->outputLine('Login in Jackrabbit Repository using workspace: '. $this->currentWorkspace);
-		$this->phpCrSession = $repository->login(
-			$credentials,
-			$this->currentWorkspace
-		);
 		$this->outputLine('Jackrabbit Session created');
 	}
 
