@@ -64,7 +64,7 @@ To see what options each command provides just call "./flow3 help <command>" (e.
 * integrate [jackalope-doctrine-dbal](https://github.com/jackalope/jackalope-doctrine-dbal) into Jackalope Package
 * integrate [jackalope-jackrabbit-meter](https://github.com/jackalope/jackalope-jackrabbit-meter) into Jackalope Package
 * integrate [jackrabbit-importexport](https://github.com/jackalope/jackrabbit-importexport) into Jackalope Package
-* integrate example controller domain/phpcrRepository and domain/phpcrDocuments into SwiftLizard.PHPCR Package
+* integrate example controller for FE (FLUID)  into SwiftLizard.PHPCR Package, at the moment only CLI available
 
 # Supporter
 The following companys and persons had been so nice to help building this by giving hints and advices or beta testing this stuff:
