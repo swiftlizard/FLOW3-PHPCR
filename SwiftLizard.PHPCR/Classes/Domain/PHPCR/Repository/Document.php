@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @FLOW3\Scope("singleton")
  */
-class Jackrabbit {
+class Document {
 
 	/**
 	 * @var array
@@ -161,5 +161,91 @@ class Jackrabbit {
 	 */
 	public function findMany(array $ids){
 		return $this->localRepository->findMany( $ids);
+	}
+
+	/**
+	 * Persist given model
+	 * @param \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document $document
+	 * @return void
+	 */
+	public function persist(\SwiftLizard\PHPCR\Domain\PHPCR\Model\Document $document){
+		$this->documentManager->persist($document);
+	}
+	/**
+	 * Flush document manager to store
+	 * persisted model in CR
+	 *
+	 * @return void;
+	 */
+	public function flush(){
+		$this->documentManager->flush();
+	}
+
+	/**
+	 * Create a Query
+	 *
+	 * @param  string $statement the SQL2 statement
+	 * @param  string $language (see QueryInterface for list of supported types)
+	 * @param  bool $replaceWithFieldnames if * should be replaced with Fieldnames automatically
+	 * @return \PHPCR\Query\QueryResultInterface
+	 */
+	public function createQuery($statement, $language, $options = 0){
+		return $this->localRepository->createQuery($statement, $language, $options);
+	}
+
+	/**
+	 * Get documents from a PHPCR query instance
+	 *
+	 * @param  \PHPCR\Query\QueryResultInterface $result
+	 * @return array of document instances
+	 */
+	public function getDocumentsByQuery(\PHPCR\Query\QueryInterface $query){
+		return $this->localRepository->getDocumentsByQuery($query);
+	}
+
+	/**
+	 * Quote a string for inclusion in an SQL2 query
+	 *
+	 * @see \PHPCR\PropertyType
+	 * @param  string $val
+	 * @param  int $type
+	 * @return string
+	 */
+	public function quote($val, $type = null){
+		return $this->localRepository->quote($val, $type);
+	}
+
+	/**
+	 * Escape the illegal characters for inclusion in an SQL2 query. Escape Character is \\.
+	 *
+	 * @see http://jackrabbit.apache.org/api/1.4/org/apache/jackrabbit/util/Text.html #escapeIllegalJcrChars
+	 * @param  string $string
+	 * @return string Escaped String
+	 */
+	public function escapeFullText($string){
+		return $this->localRepository->escapeFullText($string);
+	}
+
+	/**
+	 * @return \Doctrine\ODM\PHPCR\DocumentManager
+	 */
+	public function getDocumentManager(){
+		return $this->documentManager;
+	}
+
+	/**
+	 * @param  object $document
+	 * @return object Document instance
+	 */
+	public function refresh($document){
+		return $this->localRepository->refresh($document);
+	}
+
+	/**
+	 * @param object $document
+	 * @return void
+	 */
+	public function refreshDocumentForProxy($document){
+		$this->localRepository->refreshDocumentForProxy($document);
 	}
 }
