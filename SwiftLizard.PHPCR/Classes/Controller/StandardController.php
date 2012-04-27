@@ -37,14 +37,11 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
-
-		$document = new \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document();
-		$document->setPath('/chris');
-		$document->setTitle('Test Document 1');
-		$document->setContent('Lorem Ipsum und so weiter.');
-
-		$this->repository->persist($document);
-		$this->repository->flush();
+		$iterator = $this->repository->findOneBy(
+			array(
+			     'content' => 'Lorem Ipsum und so weiter.'
+			)
+		);
 	}
 
 }

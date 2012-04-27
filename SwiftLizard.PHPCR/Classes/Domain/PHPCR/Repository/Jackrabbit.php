@@ -18,12 +18,27 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @FLOW3\Scope("singleton")
  */
-class Jackrabbit extends \Doctrine\ODM\PHPCR\DocumentRepository{
+class Jackrabbit {
 
 	/**
 	 * @var array
 	 */
 	protected $settings = array();
+
+	/**
+	 * @var \TYPO3\FLOW3\Package\PackageManagerInterface
+	 */
+	protected $packageManager;
+
+	/**
+	 * @var \Doctrine\ODM\PHPCR\DocumentManager
+	 */
+	protected $documentManager;
+
+	/**
+	 * @var \Doctrine\ODM\PHPCR\DocumentRepository
+	 */
+	protected $localRepository;
 
 	/**
 	 * Injects the FLOW3 settings, only the persistence part is kept for further use
@@ -33,6 +48,14 @@ class Jackrabbit extends \Doctrine\ODM\PHPCR\DocumentRepository{
 	 */
 	public function injectSettings(array $settings) {
 		$this->settings = $settings['Jackrabbit'];
+	}
+
+	/**
+	 * @param \TYPO3\FLOW3\Package\PackageManagerInterface $packageManager
+	 * @return void
+	 */
+	public function injectPackageManager(\TYPO3\FLOW3\Package\PackageManagerInterface $packageManager) {
+		$this->packageManager = $packageManager;
 	}
 
 	/**
@@ -48,18 +71,8 @@ class Jackrabbit extends \Doctrine\ODM\PHPCR\DocumentRepository{
 	 * @return void
 	 */
 	public function init(){
-		parent::__construct(
-			$this->initRepository($this->settings['JackrabbitRepository']['workspace']),
-			new \Doctrine\ODM\PHPCR\Mapping\ClassMetadata('\SwiftLizard\PHPCR\Domain\PHPCR\Model\Document')
-		);
-	}
-
-	public function persist($document){
-		$this->dm->persist($document);
-	}
-
-	public function flush(){
-		$this->dm->flush();
+		$this->initRepository($this->settings['JackrabbitRepository']['workspace']);
+		$this->localRepository = $this->documentManager->getRepository('\SwiftLizard\PHPCR\Domain\PHPCR\Model\Document');
 	}
 
 	/**
@@ -74,7 +87,7 @@ class Jackrabbit extends \Doctrine\ODM\PHPCR\DocumentRepository{
 		$driver = new \Doctrine\ODM\PHPCR\Mapping\Driver\AnnotationDriver(
 						$reader,
 						array(
-						     __dir__.'/../Model/'
+						     $this->packageManager->getPackage('SwiftLizard.PHPCR')->getClassesPath().'/Domain/PHPCR/Model/'
 						)
 					);
 
@@ -86,6 +99,68 @@ class Jackrabbit extends \Doctrine\ODM\PHPCR\DocumentRepository{
 									$config
 								);
 
-		return $documentManager;
+		$this->localRepository = $documentManager->getRepository('\SwiftLizard\PHPCR\Domain\PHPCR\Model\Document');
+		$this->documentManager = $this->localRepository->getDocumentManager();
+	}
+
+	/**
+	 * Find a single document by its id
+	 *
+	 * The id may either be a PHPCR path or UUID
+	 *
+	 * @param string $id document id
+	 * @return object document or null
+	 */
+	public function find($ids){
+		return $this->localRepository->find($ids);
+	}
+
+	/**
+	 * Finds all documents in the repository.
+	 *
+	 * @return array The entities.
+	 */
+	public function findAll(){
+		return $this->localRepository->findAll();
+	}
+
+	/**
+	 * Finds document by a set of criteria.
+	 *
+	 * Optionally sorting and limiting details can be passed. An implementation may throw
+	 * an UnexpectedValueException if certain values of the sorting or limiting details are
+	 * not supported.
+	 *
+	 * @throws UnexpectedValueException
+	 * @param array $criteria
+	 * @param array|null $orderBy
+	 * @param int|null $limit
+	 * @param int|null $offset
+	 * @return mixed The objects.
+	 */
+	public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = 0){
+		return $this->localRepository->findBy($criteria, $orderBy , $limit, $offset);
+	}
+
+	/**
+	 * Finds a single document by a set of criteria.
+	 *
+	 * @param array $criteria
+	 * @return object
+	 */
+	public function findOneBy(array $criteria){
+		return $this->localRepository->findOneBy($criteria);
+	}
+
+	/**
+	 * Find many document by id
+	 *
+	 * The ids may either be PHPCR paths or UUID's, but all must be of the same type
+	 *
+	 * @param array $ids document ids
+	 * @return array of document objects
+	 */
+	public function findMany(array $ids){
+		return $this->localRepository->findMany( $ids);
 	}
 }

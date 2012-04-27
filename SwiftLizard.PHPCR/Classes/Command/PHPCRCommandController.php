@@ -86,6 +86,14 @@ class PHPCRCommandController extends \TYPO3\FLOW3\Cli\CommandController{
 		$this->repository->flush();
 	}
 
+	public function getRepositoryItemsListCommand(){
+		$doc = $this->repository->find('/chris8');
+		$this->outputLine(print_r($doc,true));
+
+		$doclist = $this->repository->findAll();
+		$this->outputLine(print_r($doclist,true));
+	}
+
 	/**
 	 * Injects the FLOW3 settings, only the persistence part is kept for further use
 	 *
