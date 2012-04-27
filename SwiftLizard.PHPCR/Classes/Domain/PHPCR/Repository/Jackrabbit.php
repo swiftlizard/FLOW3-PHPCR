@@ -72,7 +72,6 @@ class Jackrabbit {
 	 */
 	public function init(){
 		$this->initRepository($this->settings['JackrabbitRepository']['workspace']);
-		$this->localRepository = $this->documentManager->getRepository('\SwiftLizard\PHPCR\Domain\PHPCR\Model\Document');
 	}
 
 	/**
