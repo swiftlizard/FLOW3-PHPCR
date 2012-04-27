@@ -16,7 +16,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 	/**
-	 * @var \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit
+	 * @var \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document
 	 */
 	protected $repository;
 
@@ -24,9 +24,9 @@ class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 	 * Helper to inject the repository and init it
 	 * used this way to get the settings within the repository
 	 *
-	 * @param \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit $repository
+	 * @param \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document $repository
 	 */
-	public function injectRepository(\SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit $repository){
+	public function injectRepository(\SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document $repository){
 		$this->repository = $repository;
 		$this->repository->init();
 	}

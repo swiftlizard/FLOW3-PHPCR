@@ -54,7 +54,7 @@ class PHPCRCommandController extends \TYPO3\FLOW3\Cli\CommandController{
 	private $phpCrSession;
 
 	/**
-	 * @var \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit
+	 * @var \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document
 	 */
 	protected $repository;
 
@@ -62,9 +62,9 @@ class PHPCRCommandController extends \TYPO3\FLOW3\Cli\CommandController{
 	 * Helper to inject the repository and init it
 	 * used this way to get the settings within the repository
 	 *
-	 * @param \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit $repository
+	 * @param \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document $repository
 	 */
-	public function injectRepository(\SwiftLizard\PHPCR\Domain\PHPCR\Repository\Jackrabbit $repository){
+	public function injectRepository(\SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document $repository){
 		$this->repository = $repository;
 		$this->repository->init();
 	}
@@ -92,6 +92,25 @@ class PHPCRCommandController extends \TYPO3\FLOW3\Cli\CommandController{
 
 		$doclist = $this->repository->findAll();
 		$this->outputLine(print_r($doclist,true));
+
+		$doclist2 = $this->repository->findOneBy(
+			array(
+			     'content' => 'Lorem Ipsum und so weiter.'
+			)
+		);
+		$this->outputLine(print_r($doclist2,true));
+
+		$doclist3 = $this->repository->findBy(
+			array(
+			     'content' => 'Lorem Ipsum und so weiter.'
+			),
+			array(
+			     'path'
+			),
+			3,
+			1
+		);
+		$this->outputLine(print_r($doclist3,true));
 	}
 
 	/**
