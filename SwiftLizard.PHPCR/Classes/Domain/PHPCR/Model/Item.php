@@ -20,7 +20,7 @@ use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
  *
  * @PHPCRODM\Document
  */
-class Document{
+class Item{
 
 	/**
 	 * @PHPCRODM\Id()
@@ -41,12 +41,6 @@ class Document{
      * @PHPCRODM\Nodename
      */
     protected $nodename;
-
-    /**
-     * @var \Doctrine\ODM\PHPCR\ChildrenCollection<\SwiftLizard\PHPCR\Domain\PHPCR\Model\Item>
-     * @PHPCRODM\Children(filter="keyfact_*")
-     */
-    protected $children;
 
 	/**
 	 * @PHPCRODM\String(name="title"))
@@ -137,21 +131,5 @@ class Document{
 	{
 		return $this->content;
 	}
-
-    /**
-     * @param \Doctrine\ODM\PHPCR\ChildrenCollection $children
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
-    }
-
-    /**
-     * @return \Doctrine\ODM\PHPCR\ChildrenCollection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
 
 }

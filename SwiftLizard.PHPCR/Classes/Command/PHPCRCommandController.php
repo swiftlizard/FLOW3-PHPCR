@@ -49,69 +49,9 @@ class PHPCRCommandController extends \TYPO3\FLOW3\Cli\CommandController{
 	protected $currentWorkspace;
 
 	/**
-	 * @var \Jackalope\SessionInterface
+	 * @var \PHPCR\SessionInterface
 	 */
 	private $phpCrSession;
-
-	/**
-	 * @var \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document
-	 */
-	protected $repository;
-
-	/**
-	 * Helper to inject the repository and init it
-	 * used this way to get the settings within the repository
-	 *
-	 * @param \SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document $repository
-	 */
-	public function injectRepository(\SwiftLizard\PHPCR\Domain\PHPCR\Repository\Document $repository){
-		$this->repository = $repository;
-		$this->repository->init();
-	}
-
-	/**
-	 * test insert command to see if every thing works fine
-	 *
-	 * @param string $path
-	 * @return void
-	 */
-	public function dummyInsertCommand($path){
-
-		$document = new \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document();
-		$document->setPath($path);
-		$document->setTitle('Test Document for '. $path);
-		$document->setContent('Lorem Ipsum und so weiter.');
-
-		$this->repository->persist($document);
-		$this->repository->flush();
-	}
-
-	public function getRepositoryItemsListCommand(){
-		$doc = $this->repository->find('/chris8');
-		$this->outputLine(print_r($doc,true));
-
-		$doclist = $this->repository->findAll();
-		$this->outputLine(print_r($doclist,true));
-
-		$doclist2 = $this->repository->findOneBy(
-			array(
-			     'content' => 'Lorem Ipsum und so weiter.'
-			)
-		);
-		$this->outputLine(print_r($doclist2,true));
-
-		$doclist3 = $this->repository->findBy(
-			array(
-			     'content' => 'Lorem Ipsum und so weiter.'
-			),
-			array(
-			     'path'
-			),
-			3,
-			1
-		);
-		$this->outputLine(print_r($doclist3,true));
-	}
 
 	/**
 	 * Injects the FLOW3 settings, only the persistence part is kept for further use
