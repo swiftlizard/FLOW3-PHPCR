@@ -42,7 +42,7 @@ class Document{
     protected $nodename;
 
     /**
-     * @var \Doctrine\ODM\PHPCR\ChildrenCollection<\SwiftLizard\PHPCR\Domain\PHPCR\Model\Item>
+     * @var \Doctrine\Common\Collections\Collection<\SwiftLizard\PHPCR\Domain\PHPCR\Model\Item>
      * @PHPCRODM\Children(filter="keyfact_*")
      */
     protected $children;
@@ -138,9 +138,9 @@ class Document{
 	}
 
     /**
-     * @param \Doctrine\ODM\PHPCR\ChildrenCollection $children
+     * @param \Doctrine\Common\Collections\Collection $children
      */
-    public function setChildren($children)
+    public function setChildren(\Doctrine\Common\Collections\Collection $children)
     {
         $this->children = $children;
     }
@@ -158,8 +158,7 @@ class Document{
      */
     public function addChild(Item $item)
     {
-        if($this->children instanceof \Doctrine\ODM\PHPCR\ChildrenCollection
-            || $this->children instanceof \Doctrine\Common\Collections\ArrayCollection ){
+        if($this->children instanceof \Doctrine\Common\Collections\Collection){
             $item->setParent($this);
             $this->children->add($item);
         }

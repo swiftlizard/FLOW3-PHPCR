@@ -262,6 +262,7 @@ class CheckPhpCrCommandController extends \TYPO3\FLOW3\Cli\CommandController
         $document->setContent('Content: '. $documentName);
 
         $collection = new \Doctrine\Common\Collections\ArrayCollection();
+
         $document->setChildren($collection);
         for ($i = 0; $i < 10; $i++)
         {
