@@ -261,15 +261,7 @@ class CheckPhpCrCommandController extends \TYPO3\FLOW3\Cli\CommandController
         $document->setTitle('Title: '. $documentName);
         $document->setContent('Content: '. $documentName);
 
-        $this->documentRepository->persist($document);
-        $this->documentRepository->flush();
-
-        $document = $this->documentRepository->find('/documents/'. $documentName);
-
-        $this->outputLine(get_class($document));
-        $this->outputLine($document->getTitle());
-
-        $collection = new \Doctrine\ODM\PHPCR\ChildrenCollection($this->documentRepository->getDocumentManager(), $document);
+        $collection = new \Doctrine\Common\Collections\ArrayCollection();
         $document->setChildren($collection);
         for ($i = 0; $i < 10; $i++)
         {
@@ -281,9 +273,8 @@ class CheckPhpCrCommandController extends \TYPO3\FLOW3\Cli\CommandController
             $document->addChild($item);
         }
 
-        $counter = $document->getChildren()->count();
-        $this->outputLine($counter);
 
+        $this->documentRepository->persist($document);
         $this->documentRepository->flush();
     }
 

@@ -158,7 +158,8 @@ class Document{
      */
     public function addChild(Item $item)
     {
-        if($this->children instanceof \Doctrine\ODM\PHPCR\ChildrenCollection){
+        if($this->children instanceof \Doctrine\ODM\PHPCR\ChildrenCollection
+            || $this->children instanceof \Doctrine\Common\Collections\ArrayCollection ){
             $item->setParent($this);
             $this->children->add($item);
         }
