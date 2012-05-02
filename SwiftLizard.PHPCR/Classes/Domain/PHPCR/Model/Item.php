@@ -32,7 +32,6 @@ class Item{
      * to "parent and name" strategy this attribute will contain
      * the parent object
      *
-     * @var \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document
      * @PHPCRODM\ParentDocument()
      */
     protected $parent;

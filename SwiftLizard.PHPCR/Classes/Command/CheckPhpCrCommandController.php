@@ -202,6 +202,92 @@ class CheckPhpCrCommandController extends \TYPO3\FLOW3\Cli\CommandController
     }
 
     /**
+     * @param string $documentName
+     */
+    public function insertDocumentandItemsCommand($documentName)
+    {
+        $this->dummyInsertDocumentCommand(
+             $documentName,
+            '/documents',
+            'Test Item: '. $documentName,
+            'Test Content for '. $documentName
+        );
+
+        for($i = 10; $i < 14; $i++)
+        {
+            $this->dummyInsertItemCommand(
+                'keyfact_'.$i,
+                '/documents/'. $documentName,
+                'Keyfact No.: '. $i,
+                'Keyfact Dummy insert for Keyfact No:' .$i
+            );
+        }
+
+    }
+
+    /**
+     * @param string $itemName
+     * @param string $documentName
+     */
+    public function addNewItemToDocumentCommand($itemName, $documentName)
+    {
+        /** @var \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document $document  */
+        $document = $this->documentRepository->find($documentName);
+
+        $item = new \SwiftLizard\PHPCR\Domain\PHPCR\Model\Item();
+        $item->setNodename('keyfact_'. $itemName);
+        $item->setTitle('Keyfact No.:' . $itemName);
+        $item->setContent('Keyfact Dummy insert for Keyfact No:' . $itemName);
+
+        $document->addChild($item);
+
+        $this->documentRepository->flush();
+    }
+
+    /**
+     * @param string $documentName
+     */
+    public function insertDocumentWithItemsCommand($documentName){
+        $document = new \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document();
+        $document->setParent(
+            $this->documentRepository
+            ->getDocumentManager()
+            ->find(
+                null,
+                '/documents'
+            )
+        );
+        $document->setNodename($documentName);
+        $document->setTitle('Title: '. $documentName);
+        $document->setContent('Content: '. $documentName);
+
+        $this->documentRepository->persist($document);
+        $this->documentRepository->flush();
+
+        $document = $this->documentRepository->find('/documents/'. $documentName);
+
+        $this->outputLine(get_class($document));
+        $this->outputLine($document->getTitle());
+
+        $collection = new \Doctrine\ODM\PHPCR\ChildrenCollection($this->documentRepository->getDocumentManager(), $document);
+        $document->setChildren($collection);
+        for ($i = 0; $i < 10; $i++)
+        {
+            $item = new \SwiftLizard\PHPCR\Domain\PHPCR\Model\Item();
+            $item->setNodename('keyfact_'. $documentName .'_'.$i);
+            $item->setTitle('Keyfact No.:' . $i);
+            $item->setContent('Keyfact Dummy insert for Keyfact No:' . $i);
+
+            $document->addChild($item);
+        }
+
+        $counter = $document->getChildren()->count();
+        $this->outputLine($counter);
+
+        $this->documentRepository->flush();
+    }
+
+    /**
      * Helper to create Dialogs in CLI mode
      * will return the cli answer by user
      *

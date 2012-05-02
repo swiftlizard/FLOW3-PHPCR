@@ -32,7 +32,6 @@ class Document{
      * to "parent and name" strategy this attribute will contain
      * the parent object
      *
-     * @var \SwiftLizard\PHPCR\Domain\PHPCR\Model\Document
      * @PHPCRODM\ParentDocument()
      */
     protected $parent;
@@ -152,6 +151,17 @@ class Document{
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * @param \SwiftLizard\PHPCR\Domain\PHPCR\Model\Item $item
+     */
+    public function addChild(Item $item)
+    {
+        if($this->children instanceof \Doctrine\ODM\PHPCR\ChildrenCollection){
+            $item->setParent($this);
+            $this->children->add($item);
+        }
     }
 
 }
