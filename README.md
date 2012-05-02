@@ -59,6 +59,9 @@ Now you are good to go.
 To see what CLI commands are provided at the moment just call "./flow3 help" and look for phpcr.
 To see what options each command provides just call "./flow3 help <command>" (e.g. ./flow3 help phpcr:jackrabbit)
 
+For configuration of the standalone server take a look here:
+[Jackrabbit Standalone Documentation](http://jackrabbit.apache.org/standalone-server.html)
+
 # ToDo
 
 * integrate [jackalope-doctrine-dbal](https://github.com/jackalope/jackalope-doctrine-dbal) into Jackalope Package
